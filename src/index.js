@@ -49,16 +49,16 @@ class BinaryTree {
         }
     }
 
-    search(node, value) {
+    insertNumber(node, value) {
         if(node === null) {
             return null;
         }
-        else if (!this.canJoinCluster(node, value) && !this.canJoinCluster(node.right, value)) {
-            this.insert([value]);
-            return;
-        }
         else if(value < node.first) {
-            return this.search(node.left, value);
+            if(node.left) {
+                return this.insertNumber(node.left, value);
+            } else {
+                this.insert([value]);
+            }
         }
         else if(value > node.first && value <= node.last) {
             console.log(node)
@@ -82,7 +82,7 @@ class BinaryTree {
                     return;
                 }
             } else {
-                return this.search(node.right, value);
+                return this.insertNumber(node.right, value);
             }
         }
         else {
@@ -105,7 +105,12 @@ const ClusterTree = new BinaryTree();
 
 ClusterTree.insert([3, 5, 10, 11]);
 ClusterTree.insert([55, 60, 62]);
+ClusterTree.insert([20, 23, 26]);
+ClusterTree.insert([155, 160, 162]);
 
-console.log(ClusterTree.search(ClusterTree.root, 98))
+ClusterTree.insertNumber(ClusterTree.root, 1)
+ClusterTree.insertNumber(ClusterTree.root, 2)
+ClusterTree.insertNumber(ClusterTree.root, 33)
+ClusterTree.insertNumber(ClusterTree.root, 34)
 
 console.log(ClusterTree);
